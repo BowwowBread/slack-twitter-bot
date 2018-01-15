@@ -55,20 +55,21 @@ class TwitterListener(StreamListener):
         self.__stream.disconnect()
 
     def on_data(self, data):
+        print(data)
         if(json.loads(data)["text"].find("RT @") != -1):
           pass
         else:
           date = json.loads(data)["created_at"]
           message = json.loads(data)["text"]
-          name = json.loads(data)["user"]["name"] + "(@" + json.loads(data)["user"]["screen_name"] + ")"
+          name = json.loads(data)["user"]["name"],
+          username = "(@" + json.loads(data)["user"]["screen_name"] + ")",
           _id = json.loads(data)["id"]
           slack.post_tweet("시고테스트", date, message, name, _id)
 
     def on_error(self, status_code):
         print(status_code)
         print("error")      
-        if(status_code == 406):
-          return False
+        
 listener = None
 def streamingStart(start, targetWords):
     global listener

@@ -40,11 +40,11 @@ def rtmStart():
 def post_message(channel, message):
   slack.chat.post_message(channel="#"+channel, text=message, as_user=True)
   
-def post_tweet(channel, date, message, name, _id):
+def post_tweet(channel, date, message, name, username, _id):
   print("post")
   attachments_dict = dict()
   attachments_dict['title'] = name + " - " + date
-  attachments_dict['title_link'] = "https://twitter.com/"+name+"/status/"+str(_id)
+  attachments_dict['title_link'] = "https://twitter.com/"+username+"/status/"+str(_id)
   attachments_dict['text'] = message
   attachments_dict['mrkdwn_in'] = ["text", "pretext"]
   attachments = [attachments_dict]
