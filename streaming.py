@@ -65,9 +65,10 @@ class TwitterListener(StreamListener):
           slack.post_tweet("시고테스트", date, message, name, _id)
 
     def on_error(self, status_code):
+        print(status_code)
+        print("error")      
         if(status_code == 406):
           return False
-        print(status_code)
 listener = None
 def streamingStart(start, targetWords):
     global listener
