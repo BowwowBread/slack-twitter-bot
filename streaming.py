@@ -61,15 +61,15 @@ class TwitterListener(StreamListener):
         else:
           date = json.loads(data)["created_at"]
           message = json.loads(data)["text"]
-          name = json.loads(data)["user"]["name"],
-          username = "(@" + json.loads(data)["user"]["screen_name"] + ")",
+          name = json.loads(data)["user"]["name"]
+          username = "(@" + json.loads(data)["user"]["screen_name"] + ")"
           _id = json.loads(data)["id"]
-          slack.post_tweet("시고테스트", date, message, name, _id)
+          slack.post_tweet("시고테스트", date, message, name, username, _id)
 
     def on_error(self, status_code):
         print(status_code)
         print("error")      
-        
+
 listener = None
 def streamingStart(start, targetWords):
     global listener
