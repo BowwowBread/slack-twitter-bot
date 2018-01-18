@@ -55,7 +55,6 @@ class TwitterListener(StreamListener):
         self.__stream.disconnect()
 
     def on_data(self, data):
-        print(data)
         if(json.loads(data)["text"].find("RT @") != -1):
           pass
         else:
