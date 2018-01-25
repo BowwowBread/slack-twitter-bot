@@ -1,1 +1,6 @@
 config.py
+venv
+.vscode
+__pycache__
+test.py
+text.json

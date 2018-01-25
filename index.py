@@ -4,4 +4,9 @@ import streaming
 import slack
 
 if __name__ == '__main__' :
-  slack.rtmStart()
+  try:
+    slack.rtmStart()
+  except e:
+    print(e)
+    
+
