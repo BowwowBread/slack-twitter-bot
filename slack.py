@@ -17,25 +17,27 @@ async def execute_bot(sock_endpoint):
     global targetWords
     ws = await websockets.connect(sock_endpoint)
     while True:
-        message_json = json.loads(await ws.recv())
-        if(message_json["type"] == "message"):
-          if("bot_id" in message_json):
-            print("bot")
-          else:
-
-            text = message_json["text"]
-            if(text.split()[0] == "시고"):  
-              if(text.split()[1] == "검색어"):
-                targetWords = []
-                targetWord = ""
-                post_message("시고테스트", "검색 시작")                      
-                streaming.streamingStart(False, None)                                 
-                targetWords = text[6:].replace('[', '').replace(']', '').strip().replace(" ", "").split(',')
-                print(targetWords)
-                streaming.streamingStart(True, targetWords)
-              elif(text.split()[1] == "중지"):
-                post_message("시고테스트", "검색 종료")                            
-                streaming.streamingStart(False, None)                
+        try:
+          message_json = json.loads(await ws.recv())
+          if(message_json["type"] == "message"):
+            if("bot_id" in message_json):
+              print("bot")
+            else:
+              text = message_json["text"]
+              if(text.split()[0] == "시고"):  
+                if(text.split()[1] == "검색어"):
+                  targetWords = []
+                  targetWord = ""
+                  post_message("시고테스트", "검색 시작")                      
+                  streaming.streamingStart(False, None)                                 
+                  targetWords = text[6:].replace('[', '').replace(']', '').strip().replace(" ", "").split(',')
+                  print(targetWords)
+                  streaming.streamingStart(True, targetWords)
+                elif(text.split()[1] == "중지"):
+                  post_message("시고테스트", "검색 종료")                            
+                  streaming.streamingStart(False, None)                
+        except:
+          post_message("시고테스트", "다시 입력해주세요.")
 def rtmStart():
   response = slack.rtm.start()
   sock_endpoint = response.body['url']

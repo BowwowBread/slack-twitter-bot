@@ -6,7 +6,7 @@ import slack
 if __name__ == '__main__' :
   try:
     slack.rtmStart()
-  except e:
-    print(e)
+  except:
+    print("except err")
     
 
